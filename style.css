@@ -10,21 +10,23 @@ body
 a.squiffy-link
 {
     text-decoration: underline;
-    color: #0CCE6B;
+    font-weight: bold;
+    font-size: 1em;
+    color: #EF2D56;
     cursor: pointer;
 }
 
 a.squiffy-link.disabled
 {
     text-decoration: inherit;
-    color: inherit !important;
+    color: #0CCE6B;
     cursor: inherit;
 }
 
 a.squiffy-header-link
 {
     text-decoration: underline;
-    color: #0CCE6B;
+    color: #EF2D56;
     cursor: pointer;
 }
 

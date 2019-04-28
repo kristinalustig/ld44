@@ -625,38 +625,90 @@ var get = squiffy.get;
 var set = squiffy.set;
 
 
-squiffy.story.start = '_default';
+squiffy.story.start = 'dayOne';
 squiffy.story.id = 'bde17de09c';
 squiffy.story.sections = {
-	'_default': {
-		'text': "<p>The year is 2200.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue1\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
+	'': {
+		'clear': true,
+		'text': "",
+		'passages': {
+		},
+	},
+	'beginning': {
+		'text': "<p>  The year is 2200.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue1\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
 		'passages': {
 		},
 	},
 	'_continue1': {
-		'text': "<p>Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue2\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
+		'text': "<p>  Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue2\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
 		'passages': {
 		},
 	},
 	'_continue2': {
-		'text': "<p>The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue3\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
+		'text': "<p>  The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue3\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
 		'passages': {
 		},
 	},
 	'_continue3': {
-		'text': "<p>So they created a new kind of rich.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"title\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
+		'text': "<p>  So they created a new kind of rich.</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"title\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
 		'passages': {
 		},
 	},
 	'title': {
-		'clear': true,
-		'text': "<p>TITLE CARD</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"dayone\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
+		'text': "<p>  TITLE CARD</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"dayOne\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
 		'passages': {
 		},
 	},
-	'dayone': {
-		'clear': true,
-		'text': "<p>You wake up in your</p>",
+	'dayOne': {
+		'text': "<p>  You wake up in your HomePod (TM) to the sound of a loud voice, blaring from your HemoCorp SpeakerFriend (TM).</p>\n<p>  &quot;Good morning, Galar. How is your blood today?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"groan\" role=\"link\" tabindex=\"0\">Ignore it.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Cheerily exclaim &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
+		'attributes': ["hcAff = 10"],
+		'js': function() {
+			var badSide = false;
+		},
+		'passages': {
+		},
+	},
+	'groan': {
+		'text': "<p>  You groan and put your pillow over your head.</p>\n<p>  You hear a brief whirr. SpeakerFriend replies, this time louder than before.</p>\n<p>  &quot;Good morning, Galar. How is your blood today?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleep\" role=\"link\" tabindex=\"0\">Try to go back to sleep.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greetBad\" role=\"link\" tabindex=\"0\">Mumble something about it being fine.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Clear your throat and say, &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
+		'attributes': ["hcAff-=1"],
+		'js': function() {
+			var badSide = true;
+		},
+		'passages': {
+		},
+	},
+	'sleep': {
+		'text': "<p>  You put your hands over your ears and try to sleep a bit longer, refusing to acknowledge SpeakerFriend.</p>\n<p>  A grating alarm begins to play.</p>\n<p>  &quot;Good morning, Galar. Rising early is the foundation for you to achieve your full potential. How is your blood today?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleepMore\" role=\"link\" tabindex=\"0\">I&#39;m not doing it. Seriously.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greetWorse\" role=\"link\" tabindex=\"0\">I shout, &quot;IT&#39;S FINE, HOW THE FUCK IS YOURS?&quot;</a></p>",
+		'attributes': ["hcAff-=2"],
+		'passages': {
+		},
+	},
+	'greetBad': {
+		'text': "<p>  You mumble something like, &quot;Blood&#39;s good, leave itwarraslee...zzz&quot;</p>\n<p>  &quot;Galar, I was unable to make that out. Could you please repeat yourself?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleepMore\" role=\"link\" tabindex=\"0\">Just go back to sleep.</a></p>",
+		'attributes': ["hcAff-=2"],
+		'passages': {
+		},
+	},
+	'greetWorse': {
+		'text': "<p>  You hear another small whirr.</p>\n<p>  &quot;Galar, it seems as if there is an altercation happening in your HomePod. Do you need assistance?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"\" role=\"link\" tabindex=\"0\">Request assistance.</a>\n  <a class=\"squiffy-link link-section\" data-section=\"\" role=\"link\" tabindex=\"0\">Decline assistance.</a></p>",
+		'attributes': ["hcAff5-=1"],
+		'passages': {
+		},
+	},
+	'sleepMore': {
+		'text': "",
+		'attributes': ["hcAff-=5"],
+		'passages': {
+		},
+	},
+	'greet': {
+		'text': "<p>  You&#39;re at {hcAff}. REMEMBER TO REMOVE THIS</p>\n<p>  {if seen sleep:&quot;Remember, Galar, early risers have the best opportunities for a successful day!&quot;}{else:&quot;So great to hear. May your iron be high.&quot;}</p>\n<p>Screen 1: visual of shitty messy tiny apartment with a TV taking up one whole wall. Blinking on the wall is a notice telling you what the buying power of blood is today.</p>\n<p>“25ml = 1 meal protein”\n“50ml = something”</p>\n<p>Don’t forget to send your mandatory monthly sample in for testing. As hemocorp always says: “slogan!”</p>\n<p>Text:\nYou wake up in your private, spacious pod. The notices for the day are displayed on your telewall.</p>\n<p>What would you like to do first, citizen?\nHave some breakfast\nTake a shower\nSomething else</p>\n<p>(more filler)</p>\n<p>eventually time to leave the apartment. when you leave the hallway and go down to the street, you see a sad scene. You’re reminded of how fortunate you are to have nice blood that hemocorp can use. otherwise, how would you afford the nice place you live?</p>\n<p>you see your neighbor walk down the street. interacting with the neighbor, you find out that he’s exhausted because he and his partner have had to give blood to feed both themselves and their kids.</p>\n<p>you also see folks sitting on the ground pleading for food and water, they can’t give blood for x y z reason. you think they’re a bunch of slobs who should get themselves in order.</p>\n<p>blah blah more story i dunno</p>\n<p>some event strikes you and you wonder - wait. what’s all this blood for? how is hemocorp using all of this blood?</p>\n<p>you start doing research. talking to people. lots of conspiracy theories. “feeding an army of vampire bats” “blah blah something else.” you decide you want to find out for yourself.</p>\n<p>spend weeks exercising, stop drinking and smoking, eat no more than recommended protein meals per day.</p>\n<p>back at your tv you take a deep breath and find the “work for hemocorp” option. “100ml of blood” you give them the blood and pass out.</p>\n<p>when you wake up you’re in a glowing bright room , surrounded by blah blah, at hemocorp.</p>",
+		'js': function() {
+			var jsHcAff = squiffy.get("hcAff");
+			if (squiffy.story.seen("groan")) jsHcAff+=1;
+			if (badSide = false) jsHcAff +=2;
+			squiffy.set("hcAff", jsHcAff);
+		},
 		'passages': {
 		},
 	},

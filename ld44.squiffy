@@ -1,26 +1,148 @@
-The year is 2200.
+@start dayOne
 
-+++>>
+[[]]:
+  @clear
 
-Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.
 
-+++>>
+[[beginning]]:
+  The year is 2200.
 
-The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.
+  +++>>
 
-+++>>
+  Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.
 
-So they created a new kind of rich.
+  +++>>
 
-[[>>>>>>]](title)
+  The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.
+
+  +++>>
+
+  So they created a new kind of rich.
+
+  [[>>>>>>]](title)
 
 [[title]]:
-@clear
-TITLE CARD
+  TITLE CARD
 
-[[>>>>>>]](dayone)
+[[>>>>>>]](dayOne)
 
-[[dayone]]:
-@clear
+[[dayOne]]:
+    var badSide = false;
 
-You wake up in your
+  @set hcAff = 10
+
+  You wake up in your HomePod (TM) to the sound of a loud voice, blaring from your HemoCorp SpeakerFriend (TM).
+
+  "Good morning, Galar. How is your blood today?"
+
+  [[Ignore it.]](groan)
+  <br />
+  <br />
+  [[Cheerily exclaim "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
+
+[[groan]]:
+    var badSide = true;
+  @dec hcAff 1
+
+  You groan and put your pillow over your head.
+
+  You hear a brief whirr. SpeakerFriend replies, this time louder than before.
+
+  "Good morning, Galar. How is your blood today?"
+
+  [[Try to go back to sleep.]](sleep)
+  <br />
+  <br />
+  [[Mumble something about it being fine.]](greetBad)
+  <br />
+  <br />
+  [[Clear your throat and say, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
+
+[[sleep]]:
+  @dec hcAff 2
+
+  You put your hands over your ears and try to sleep a bit longer, refusing to acknowledge SpeakerFriend.
+
+  A grating alarm begins to play.
+
+  "Good morning, Galar. Rising early is the foundation for you to achieve your full potential. How is your blood today?"
+
+  [[I'm not doing it. Seriously.]](sleepMore)
+  <br />
+  <br />
+  [[I shout, "IT'S FINE, HOW THE FUCK IS YOURS?"]](greetWorse)
+
+[[greetBad]]:
+  @dec hcAff 2
+
+  You mumble something like, "Blood's good, leave itwarraslee...zzz"
+
+  "Galar, I was unable to make that out. Could you please repeat yourself?"
+
+  [[Just go back to sleep.]](sleepMore)
+
+[[greetWorse]]:
+  @dec hcAff5
+
+  You hear another small whirr.
+
+  "Galar, it seems as if there is an altercation happening in your HomePod. Do you need assistance?"
+
+  [[Request assistance.]]()
+  [[Decline assistance.]]()
+
+
+[[sleepMore]]:
+  @dec hcAff 5
+
+
+
+
+[[greet]]:
+    var jsHcAff = squiffy.get("hcAff");
+    if (squiffy.story.seen("groan")) jsHcAff+=1;
+    if (badSide = false) jsHcAff +=2;
+    squiffy.set("hcAff", jsHcAff);
+
+
+
+  You're at {hcAff}. REMEMBER TO REMOVE THIS
+
+
+  {if seen sleep:"Remember, Galar, early risers have the best opportunities for a successful day!"}{else:"So great to hear. May your iron be high."}
+
+Screen 1: visual of shitty messy tiny apartment with a TV taking up one whole wall. Blinking on the wall is a notice telling you what the buying power of blood is today.
+
+“25ml = 1 meal protein”
+“50ml = something”
+
+Don’t forget to send your mandatory monthly sample in for testing. As hemocorp always says: “slogan!”
+
+Text:
+You wake up in your private, spacious pod. The notices for the day are displayed on your telewall.
+
+What would you like to do first, citizen?
+Have some breakfast
+Take a shower
+Something else
+
+(more filler)
+
+eventually time to leave the apartment. when you leave the hallway and go down to the street, you see a sad scene. You’re reminded of how fortunate you are to have nice blood that hemocorp can use. otherwise, how would you afford the nice place you live?
+
+you see your neighbor walk down the street. interacting with the neighbor, you find out that he’s exhausted because he and his partner have had to give blood to feed both themselves and their kids.
+
+you also see folks sitting on the ground pleading for food and water, they can’t give blood for x y z reason. you think they’re a bunch of slobs who should get themselves in order.
+
+blah blah more story i dunno
+
+some event strikes you and you wonder - wait. what’s all this blood for? how is hemocorp using all of this blood?
+
+you start doing research. talking to people. lots of conspiracy theories. “feeding an army of vampire bats” “blah blah something else.” you decide you want to find out for yourself.
+
+spend weeks exercising, stop drinking and smoking, eat no more than recommended protein meals per day.
+
+back at your tv you take a deep breath and find the “work for hemocorp” option. “100ml of blood” you give them the blood and pass out.
+
+when you wake up you’re in a glowing bright room , surrounded by blah blah, at hemocorp.
+
