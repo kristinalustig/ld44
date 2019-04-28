@@ -10,41 +10,88 @@ body
 a.squiffy-link
 {
     text-decoration: underline;
-    font-weight: bold;
     font-size: 1em;
-    color: #EF2D56;
+    color: #DCED31;
     cursor: pointer;
 }
 
 a.squiffy-link.disabled
 {
-    text-decoration: inherit;
-    color: #0CCE6B;
+    text-decoration: line-through;
+    color: inherit;
     cursor: inherit;
 }
 
 a.squiffy-header-link
 {
     text-decoration: underline;
-    color: #EF2D56;
+    color: #F3A712;
     cursor: pointer;
+}
+
+p#end
+{
+    text-align: center;
+    font-size: 1.5em;
+    color: #F3A712;
+    font-weight: bold;
+}
+
+p#followup
+{
+    text-align: center;
+    font-size: 1em;
+    color: #F3A712;
+    font-style: italic;
+}
+
+p.intro
+{
+    text-align: center;
+    font-size: 1.3em;
+    line-height: 125%;
+}
+
+.sf
+{
+    font-family: 'Courier New', Courier, monospace !important;
+    color: #94ECBE !important;
+}
+
+p.stats
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: .8em;
+    color: #4a7856;
 }
 
 div#squiffy-container
 {
     display: flex;
+    margin-left: auto;
+    margin-right: auto;
     flex-direction: row-reverse;
     font-family: Georgia, serif;
-    color: #DCED31;
+    line-height: 150%;
+    color: #fff;
+    max-width: 80%;
 }
 
 div#image-support
 {
-    margin-right: 5%;
+    left: 5%;
+    top: 0;
+    position: fixed;
+    max-width: 40%;
 }
 
-img#flavor {
+img.flavor {
     object-fit: cover;
+    position: fixed;
+    left: 5%;
+    top: 0;
+    height: 600px;
+    width: 420px;
 }
 
 div#squiffy

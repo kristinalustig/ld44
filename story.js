@@ -625,90 +625,124 @@ var get = squiffy.get;
 var set = squiffy.set;
 
 
-squiffy.story.start = 'dayOne';
+squiffy.story.start = '9beginning';
 squiffy.story.id = 'bde17de09c';
 squiffy.story.sections = {
 	'': {
+		'text': "<p>  {if intro=0:<p class=\"stats\">Your HemoCorp reputation is now at {hcAff}.<br/>\n  Your blood level is {blood}ml.<br/>\n  {if hungry=true:You are hungry.<br/>}\n  {if tired=true:You feel tired.<br/>}</p>}</p>",
+		'js': function() {
+			if (squiffy.get("_section").startsWith(9)) {
+			  squiffy.set("intro", 1);
+			}
+			else {
+			  var jsHcAff = squiffy.get("hcAff");
+			  if (jsHcAff < 1 && jsHcAff!=null) {
+			    squiffy.story.go("9lowRepEnd");
+			    }
+			  squiffy.set("intro", 0);
+			}
+		},
+		'passages': {
+		},
+	},
+	'9beginning': {
+		'text': "<p class=\"intro\">The year is 2100.</p>\n\n<p>  <a class=\"squiffy-link link-passage\" data-passage=\"next1\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
+		'attributes': ["hcAff = 10","blood = 1800","tired = false","rentPaid = false","sampleSent = false","bloodIntro = 0","hungry = true"],
+		'passages': {
+			'next1': {
+				'text': "<p class=\"intro\">Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.</p>\n\n<p>  <a class=\"squiffy-link link-passage\" data-passage=\"next2\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
+			},
+			'next2': {
+				'text': "<p class=\"intro\">The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.</p>\n\n<p>  <a class=\"squiffy-link link-passage\" data-passage=\"next3\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
+			},
+			'next3': {
+				'text': "<p class=\"intro\">So, they created a new kind of rich.</p>\n\n<p>  <a class=\"squiffy-link link-section\" data-section=\"titleScreen\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
+			},
+		},
+	},
+	'titleScreen': {
 		'clear': true,
-		'text': "",
-		'passages': {
-		},
-	},
-	'beginning': {
-		'text': "<p>  The year is 2200.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue1\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
-		'passages': {
-		},
-	},
-	'_continue1': {
-		'text': "<p>  Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue2\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
-		'passages': {
-		},
-	},
-	'_continue2': {
-		'text': "<p>  The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue3\" role=\"link\" tabindex=\"0\">&gt;&gt;</a></p>",
-		'passages': {
-		},
-	},
-	'_continue3': {
-		'text': "<p>  So they created a new kind of rich.</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"title\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
-		'passages': {
-		},
-	},
-	'title': {
-		'text': "<p>  TITLE CARD</p>\n<p><a class=\"squiffy-link link-section\" data-section=\"dayOne\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
+		'text': "<p>  TITLE CARD</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"dayOne\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
 		'passages': {
 		},
 	},
 	'dayOne': {
-		'text': "<p>  You wake up in your HomePod (TM) to the sound of a loud voice, blaring from your HemoCorp SpeakerFriend (TM).</p>\n<p>  &quot;Good morning, Galar. How is your blood today?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"groan\" role=\"link\" tabindex=\"0\">Ignore it.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Cheerily exclaim &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
-		'attributes': ["hcAff = 10"],
-		'js': function() {
-			var badSide = false;
-		},
+		'clear': true,
+		'text': "<p class=\"stats\">Your HemoCorp reputation is now at {hcAff}.<br/>\n  Your blood level is {blood}ml.<br/>\n  {if hungry=true:You are hungry.<br/>}\n  {if tired=true:You feel tired.<br/>}</p>\n\n<p>  You wake up in your HomePod (TM) to the sound of a loud voice, blaring from your HemoCorp (C) SpeakerFriend (TM).</p>\n<p>  <span class=\"sf\">&quot;Good morning, Galar. How is your blood today?&quot;</span></p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"groan, hcAff-=1\" role=\"link\" tabindex=\"0\">Ignore it.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet, hcAff+=2\" role=\"link\" tabindex=\"0\">Cheerily exclaim, &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
+		'attributes': ["hcAff = 10","blood = 1800","tired = false","rentPaid = false","sampleSent = false","bloodIntro = 0","hungry = true","dead = 0"],
 		'passages': {
 		},
 	},
 	'groan': {
-		'text': "<p>  You groan and put your pillow over your head.</p>\n<p>  You hear a brief whirr. SpeakerFriend replies, this time louder than before.</p>\n<p>  &quot;Good morning, Galar. How is your blood today?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleep\" role=\"link\" tabindex=\"0\">Try to go back to sleep.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greetBad\" role=\"link\" tabindex=\"0\">Mumble something about it being fine.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Clear your throat and say, &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
-		'attributes': ["hcAff-=1"],
-		'js': function() {
-			var badSide = true;
-		},
+		'text': "<p>  You groan and put your pillow over your head.</p>\n<p>  You hear a brief whirr. SpeakerFriend replies, this time louder than before.</p>\n<p>  <span class=\"sf\" style=\"font-size:1.5em\">&quot;Good morning, Galar. How is your blood today?&quot;</span></p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleep, hcAff-=2\" role=\"link\" tabindex=\"0\">Try to go back to sleep.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greetBad, hcAff-=2\" role=\"link\" tabindex=\"0\">Mumble something about it being fine.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet, hcAff+=1\" role=\"link\" tabindex=\"0\">Clear your throat and say, &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
 		'passages': {
 		},
 	},
 	'sleep': {
-		'text': "<p>  You put your hands over your ears and try to sleep a bit longer, refusing to acknowledge SpeakerFriend.</p>\n<p>  A grating alarm begins to play.</p>\n<p>  &quot;Good morning, Galar. Rising early is the foundation for you to achieve your full potential. How is your blood today?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleepMore\" role=\"link\" tabindex=\"0\">I&#39;m not doing it. Seriously.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greetWorse\" role=\"link\" tabindex=\"0\">I shout, &quot;IT&#39;S FINE, HOW THE FUCK IS YOURS?&quot;</a></p>",
-		'attributes': ["hcAff-=2"],
+		'text': "<p>  You put your hands over your ears and try to sleep a bit longer, refusing to acknowledge SpeakerFriend.</p>\n<p>  A grating alarm begins to play.</p>\n<p>  <span class=\"sf\" style=\"font-size:1.5em\">&quot;Good morning, Galar. Rising early is the foundation for you to achieve your full potential. How is your blood today?&quot;</span></p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleepMore, hcAff-=5\" role=\"link\" tabindex=\"0\">Not doing it. Seriously.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greetWorse, hcAff-=5\" role=\"link\" tabindex=\"0\">Shout, &quot;IT&#39;S FINE, HOW THE FUCK IS YOURS?&quot;</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Sigh and say, &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
 		'passages': {
 		},
 	},
 	'greetBad': {
-		'text': "<p>  You mumble something like, &quot;Blood&#39;s good, leave itwarraslee...zzz&quot;</p>\n<p>  &quot;Galar, I was unable to make that out. Could you please repeat yourself?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleepMore\" role=\"link\" tabindex=\"0\">Just go back to sleep.</a></p>",
-		'attributes': ["hcAff-=2"],
+		'text': "<p>  You mumble something like, &quot;Blood&#39;s good, leave itwarraslee...zzz&quot;</p>\n<p>  <span class=\"sf\">&quot;Galar, I was unable to make that out. Could you please repeat yourself?&quot;</span></p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"sleepMore, hcAff-=5\" role=\"link\" tabindex=\"0\">Just go back to sleep.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greetWorse, hcAff-=5\" role=\"link\" tabindex=\"0\">Shout, &quot;IT&#39;S FINE, HOW THE FUCK IS YOURS?&quot;</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Loudly exclaim, &quot;It&#39;s coursing efficiently, SpeakerFriend, thank you for asking!&quot;</a></p>",
 		'passages': {
 		},
 	},
 	'greetWorse': {
-		'text': "<p>  You hear another small whirr.</p>\n<p>  &quot;Galar, it seems as if there is an altercation happening in your HomePod. Do you need assistance?&quot;</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"\" role=\"link\" tabindex=\"0\">Request assistance.</a>\n  <a class=\"squiffy-link link-section\" data-section=\"\" role=\"link\" tabindex=\"0\">Decline assistance.</a></p>",
-		'attributes': ["hcAff5-=1"],
+		'text': "<p>  You hear another small whirr.</p>\n<p>  <span class=\"sf\">&quot;Galar, it seems as if there is an altercation happening in your HomePod. Do you need assistance?&quot;</sf></p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"aptVisit, dead=0\" role=\"link\" tabindex=\"0\">Request assistance.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Decline assistance.</a></p>",
 		'passages': {
 		},
 	},
 	'sleepMore': {
-		'text': "",
-		'attributes': ["hcAff-=5"],
+		'text': "<p>  {if seen sleep:The alarm gets even louder.}{else:A grating alarm begins to play.}</p>\n<p>  <span class=\"sf\">&quot;Galar, HemoCorp cares about your well-being. We will dispatch a HemoMedic to your location to make sure that your blood is still circulating.&quot;</span></p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"greet\" role=\"link\" tabindex=\"0\">Tell SpeakerFriend you&#39;re not dead.</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"aptVisit, dead=1\" role=\"link\" tabindex=\"0\">Continue to try to sleep.</a></p>",
 		'passages': {
 		},
 	},
 	'greet': {
-		'text': "<p>  You&#39;re at {hcAff}. REMEMBER TO REMOVE THIS</p>\n<p>  {if seen sleep:&quot;Remember, Galar, early risers have the best opportunities for a successful day!&quot;}{else:&quot;So great to hear. May your iron be high.&quot;}</p>\n<p>Screen 1: visual of shitty messy tiny apartment with a TV taking up one whole wall. Blinking on the wall is a notice telling you what the buying power of blood is today.</p>\n<p>“25ml = 1 meal protein”\n“50ml = something”</p>\n<p>Don’t forget to send your mandatory monthly sample in for testing. As hemocorp always says: “slogan!”</p>\n<p>Text:\nYou wake up in your private, spacious pod. The notices for the day are displayed on your telewall.</p>\n<p>What would you like to do first, citizen?\nHave some breakfast\nTake a shower\nSomething else</p>\n<p>(more filler)</p>\n<p>eventually time to leave the apartment. when you leave the hallway and go down to the street, you see a sad scene. You’re reminded of how fortunate you are to have nice blood that hemocorp can use. otherwise, how would you afford the nice place you live?</p>\n<p>you see your neighbor walk down the street. interacting with the neighbor, you find out that he’s exhausted because he and his partner have had to give blood to feed both themselves and their kids.</p>\n<p>you also see folks sitting on the ground pleading for food and water, they can’t give blood for x y z reason. you think they’re a bunch of slobs who should get themselves in order.</p>\n<p>blah blah more story i dunno</p>\n<p>some event strikes you and you wonder - wait. what’s all this blood for? how is hemocorp using all of this blood?</p>\n<p>you start doing research. talking to people. lots of conspiracy theories. “feeding an army of vampire bats” “blah blah something else.” you decide you want to find out for yourself.</p>\n<p>spend weeks exercising, stop drinking and smoking, eat no more than recommended protein meals per day.</p>\n<p>back at your tv you take a deep breath and find the “work for hemocorp” option. “100ml of blood” you give them the blood and pass out.</p>\n<p>when you wake up you’re in a glowing bright room , surrounded by blah blah, at hemocorp.</p>",
-		'js': function() {
-			var jsHcAff = squiffy.get("hcAff");
-			if (squiffy.story.seen("groan")) jsHcAff+=1;
-			if (badSide = false) jsHcAff +=2;
-			squiffy.set("hcAff", jsHcAff);
+		'text': "<p>  {if seen greetWorse:<span class=\"sf\">&quot;Thank you for confirming,&quot;</span> says SpeakerFriend. }{if seen sleepMore:<span class=\"sf\">&quot;Here at HemoCorp, we&#39;re always pleased to know that your blood is still circulating,&quot;</span> says SpeakerFriend. }{if seen groan:<span class=\"sf\">&quot;Remember, Galar, early risers have the best opportunities for a successful day!&quot;</span>}{else:<span class=\"sf\">&quot;So great to hear. May your iron be ever high.&quot;</span>}</p>\n<p>  You slide out of bed and throw on the HemoSuit (TM) that you left crumpled on your floor the night before. You glance at your TeleWall (TM) to see what notices you have for the day.</p>\n<p>  SpeakerFriend chimes back in. <span class=\"sf\">&quot;Galar, don&#39;t forget to send your mandatory monthly sample in for testing! As we at HemoCorp always say, &#39;Happiness is only a blood test away.&#39;&quot;</span></p>\n<p><a class=\"squiffy-link link-section\" data-section=\"_continue1\" role=\"link\" tabindex=\"0\">&gt;&gt;&gt;&gt;&gt;&gt;</a></p>",
+		'passages': {
 		},
+	},
+	'_continue1': {
+		'text': "<p>  <a class=\"squiffy-link link-passage\" data-passage=\"buyBar\" role=\"link\" tabindex=\"0\">Purchase a food bar for 100ml</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-passage\" data-passage=\"sendSample\" role=\"link\" tabindex=\"0\">Send in monthly sample</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-passage\" data-passage=\"payRent\" role=\"link\" tabindex=\"0\">Pay the rest of your rent</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"leavePod\" role=\"link\" tabindex=\"0\">Leave the HomePod</a></p>",
+		'passages': {
+			'buyBar': {
+				'text': "<p>  {if bloodIntro&lt;2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}</p>\n<p>  {if blood&lt;1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, &quot;Insufficient blood. Please try again tomorrow.&quot;}{else:After 100ml has been removed, the needle retracts and a paper-wrapped food bar pops out of the slot to your right. You unwrap it and take a big bite. It tastes faintly of oatmeal.}</p>\n  <p class=\"stats\">{if blood &lt;1150:{@hungry=true}}{if blood&lt;1150:Your blood has only decreased by 50ml.<br />}{if blood&lt;1150:{@blood+=50}}\n  Your blood level is {blood}ml.<br />\n  {if hungry:You are still hungry.<br />}{else:You are no longer hungry.<br />}\n  {if blood&lt;1150:{@tired=true}}\n  {if tired=true:You feel tired.}</p>",
+				'attributes': ["blood-=100","hungry=false","bloodIntro+=1"],
+			},
+			'sendSample': {
+				'text': "<p>  {if bloodIntro&lt;2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}</p>\n<p>  {if blood&lt;1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, &quot;Insufficient blood. Please try again tomorrow.&quot;}{else:After 250ml has been removed, you hear a cheerful little &quot;ding.&quot; <p class=\"sf\">&quot;Why, thank you, Galar, for sending in your sample so promptly.&quot;</p>}</p>\n  <p class=\"stats\">{if blood &lt;1150:{@sampleSent = false}}{if blood&lt;1150:Your blood has only decreased by 100ml.<br />}{if blood&lt;1150:{@blood+=150}}\n  Your blood level is {blood}ml.<br />\n  {if blood&lt;1150:{@tired=true}}\n  {if tired=true:You feel tired.}</p>",
+				'attributes': ["bloodIntro+=1","blood-=250","sampleSent = true","hcAff+=2"],
+			},
+			'payRent': {
+				'text': "<p>  {if bloodIntro&lt;2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}</p>\n<p>  {if blood&lt;1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, &quot;Insufficient blood. Please try again tomorrow.&quot;}{else:The blood flows out of you and into the waiting tubes. You begin to feel lightheaded, but the removal finishes and the needle retracts. You&#39;re pretty sure you can&#39;t spend any more blood today.}</p>\n  <p class=\"stats\">{if blood &lt;1150:{@rentPaid = false}}{if blood&lt;1150:Your blood has only decreased by 300ml.<br />}{if blood&lt;1150:{@blood+=250}}\n  Your blood level is {blood}ml.<br />\n  {if blood&lt;1150:{@tired=true}}\n  {if tired=true:You feel tired.}</p>",
+				'attributes': ["bloodIntro+=1","blood-=550","rentPaid = true","hcAff+=1"],
+			},
+		},
+	},
+	'leavePod': {
+		'text': "<p>  {if sampleSent=false:{@hcAff-=1}}\n  {if hungry=true:{@tired=true}}\n  {if blood&lt;1400:{@tired=true}}</p>\n<p>  You hit the button and your apartment doors slide open with a whoosh.</p>\n<p>  After a long wait and an even longer elevator ride, you make it to the ground floor, and step outside.</p>\n  <p id=\"end\">NEXT CHAPTER COMING SOON.</p>\n  <p id=\"followup\">I&#39;ll bet there are other &quot;endings.&quot; Want to play again? Hit the &quot;restart&quot; button in the bottom corner.</p>",
+		'attributes': ["bloodIntro+=1"],
+		'passages': {
+		},
+	},
+	'aptVisit': {
+		'text': "<p>  {if dead=0:You&#39;re beyond caring. &quot;Yes. Yes, SpeakerFriend, I need assistance. I cannot bring myself to give a shit about getting out of bed.&quot;}</p>\n<p>  {if dead=0:SpeakerFriend responds: <span class=\"sf\">Assistance is on its way. Please remain calm, Galar.&quot;</span>}</p>\n<p>  Time passes. You get about 15 more minutes of sweet slumber, until you hear your HomePod doors whoosh open.</p>\n<p>  Two large, ruddy men in red HemoSuits come through the doors.</p>\n<p>  &quot;SpeakerFriend sent out an alert about a...&quot; starts the one on the left, squinting at his notes on his HemoWatch (TM).</p>\n<p>  {if dead=1:The one on the right interrupts. &quot;A dead body. Galar ID Alpha, Kilo, Tango, 3, 6, 2.&quot;}\n  {if dead=0:The one on the right chimes in: &quot;An altercation concerning one Galar ID Alpha, Kilo, Tango, 3, 6, 2, and unknown assailant.&quot;}</p>\n<p>  They both pause and look at you uncertainly. You lift your head up from your pillow.</p>\n<p>  <a class=\"squiffy-link link-section\" data-section=\"9yesMe\" role=\"link\" tabindex=\"0\">&quot;Yeah, that&#39;s me.&quot;</a>\n  <br />\n  <br />\n  <a class=\"squiffy-link link-section\" data-section=\"9noNotMe\" role=\"link\" tabindex=\"0\">&quot;Nope, he just left.&quot;</a></p>",
+		'passages': {
+		},
+	},
+	'9yesMe': {
+		'text': "<p>  {if dead=1:The one on the right looks concerned. &quot;You&#39;re the deceased Galar ID Alpha, Kilo, Tango, 3, 6, 2?&quot;}\n  {if dead=0:The one on the right hardens his stare. &quot;Then where&#39;s the assailant?&quot;}</p>\n<p>  The one on the left shakes his head. &quot;Doesn&#39;t matter. Orders are to take whoever&#39;s here up to HQ for blood tests.&quot;</p>\n<p>  Your sleeping pod starts to look sort of hazy, and you notice the smell of what you think might be... lemons?</p>\n<p>  &quot;You&#39;re coming with me.&quot; The one on the right walks towards you as your vision fades to black.</p>\n  <p id=\"end\">NEXT CHAPTER COMING SOON.</p>\n  <p id=\"followup\">I&#39;ll bet there are other &quot;endings.&quot; Want to play again? Hit the &quot;restart&quot; button in the bottom corner.</p>",
+		'passages': {
+		},
+	},
+	'9noNotMe': {
+		'text': "<p>  {if dead=0:The one on the right hardens his stare. &quot;Then you must be the unknown assailant.&quot;}\n  {if dead=1:The one on the right looks angry. &quot;Then where&#39;d you put the body?&quot;}</p>\n<p>  The one on the left shakes his head dismissively and walks towards you. &quot;Doesn&#39;t matter {if dead=0:who you are}{else:where}.&quot;</p>\n<p>  Your sleeping pod starts to look sort of hazy, and you notice the smell of what you think might be... fertilizer?</p>\n<p>  &quot;You&#39;re coming with me.&quot; The one on the right walks towards you as your vision fades to black.</p>\n  <p id=\"end\">NEXT CHAPTER COMING SOON.</p>\n  <p id=\"followup\">I&#39;ll bet there are other &quot;endings.&quot; Want to play again? Hit the &quot;restart&quot; button in the bottom corner.</p>",
+		'passages': {
+		},
+	},
+	'9lowRepEnd': {
+		'text': "<p id=\"end\">NEXT CHAPTER COMING SOON.</p>\n  <p id=\"followup\">I&#39;ll bet there are other &quot;endings.&quot; Want to play again? Hit the &quot;restart&quot; button in the bottom corner.</p>",
 		'passages': {
 		},
 	},

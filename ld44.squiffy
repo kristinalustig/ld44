@@ -1,148 +1,282 @@
-@start dayOne
+@title Blood Money
+@start 9beginning
 
 [[]]:
+    if (squiffy.get("_section").startsWith(9)) {
+      squiffy.set("intro", 1);
+    }
+    else {
+      var jsHcAff = squiffy.get("hcAff");
+      if (jsHcAff < 1 && jsHcAff!=null) {
+        squiffy.story.go("9lowRepEnd");
+        }
+      squiffy.set("intro", 0);
+    }
+
+  {if intro=0:<p class="stats">Your HemoCorp reputation is now at {hcAff}.<br/>
+  Your blood level is {blood}ml.<br/>
+  {if hungry=true:You are hungry.<br/>}
+  {if tired=true:You feel tired.<br/>}</p>}
+
+
+
+
+[[9beginning]]:
+  @set hcAff = 10
+  @set blood = 1800
+  @set tired = false
+  @set rentPaid = false
+  @set sampleSent = false
+  @set bloodIntro = 0
+  @set hungry = true
+
+  <p class="intro">The year is 2100.</p>
+
+  [>>](next1)
+
+[next1]:
+  <p class="intro">Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.</p>
+
+  [>>](next2)
+
+[next2]:
+  <p class="intro">The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.</p>
+
+  [>>](next3)
+
+[next3]:
+  <p class="intro">So, they created a new kind of rich.</p>
+
+  [[>>>>>>]](titleScreen)
+
+[[titleScreen]]:
   @clear
-
-
-[[beginning]]:
-  The year is 2200.
-
-  +++>>
-
-  Through increasing automation, lack of governmental power, and relentless greed, capital has been so consolidated in the hands of the few that it has ceased to mean anything.
-
-  +++>>
-
-  The bulk of the world, with no ability to exchange money for goods, turned to trade. But the ruling class were uninterested in losing the power that their accumulated wealth had brought them.
-
-  +++>>
-
-  So they created a new kind of rich.
-
-  [[>>>>>>]](title)
-
-[[title]]:
   TITLE CARD
 
-[[>>>>>>]](dayOne)
+  [[>>>>>>]](dayOne)
 
 [[dayOne]]:
-    var badSide = false;
-
+  @clear
   @set hcAff = 10
+  @set blood = 1800
+  @set tired = false
+  @set rentPaid = false
+  @set sampleSent = false
+  @set bloodIntro = 0
+  @set hungry = true
+  @set dead = 0
 
-  You wake up in your HomePod (TM) to the sound of a loud voice, blaring from your HemoCorp SpeakerFriend (TM).
+  <p class="stats">Your HemoCorp reputation is now at {hcAff}.<br/>
+  Your blood level is {blood}ml.<br/>
+  {if hungry=true:You are hungry.<br/>}
+  {if tired=true:You feel tired.<br/>}</p>
 
-  "Good morning, Galar. How is your blood today?"
+  You wake up in your HomePod (TM) to the sound of a loud voice, blaring from your HemoCorp (C) SpeakerFriend (TM).
 
-  [[Ignore it.]](groan)
+  <span class="sf">"Good morning, Galar. How is your blood today?"</span>
+
+  [[Ignore it.]](groan, hcAff-=1)
   <br />
   <br />
-  [[Cheerily exclaim "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
+  [[Cheerily exclaim, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet, hcAff+=2)
 
 [[groan]]:
-    var badSide = true;
-  @dec hcAff 1
-
   You groan and put your pillow over your head.
 
   You hear a brief whirr. SpeakerFriend replies, this time louder than before.
 
-  "Good morning, Galar. How is your blood today?"
+  <span class="sf" style="font-size:1.5em">"Good morning, Galar. How is your blood today?"</span>
 
-  [[Try to go back to sleep.]](sleep)
+  [[Try to go back to sleep.]](sleep, hcAff-=2)
   <br />
   <br />
-  [[Mumble something about it being fine.]](greetBad)
+  [[Mumble something about it being fine.]](greetBad, hcAff-=2)
   <br />
   <br />
-  [[Clear your throat and say, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
+  [[Clear your throat and say, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet, hcAff+=1)
 
 [[sleep]]:
-  @dec hcAff 2
-
   You put your hands over your ears and try to sleep a bit longer, refusing to acknowledge SpeakerFriend.
 
   A grating alarm begins to play.
 
-  "Good morning, Galar. Rising early is the foundation for you to achieve your full potential. How is your blood today?"
+  <span class="sf" style="font-size:1.5em">"Good morning, Galar. Rising early is the foundation for you to achieve your full potential. How is your blood today?"</span>
 
-  [[I'm not doing it. Seriously.]](sleepMore)
+  [[Not doing it. Seriously.]](sleepMore, hcAff-=5)
   <br />
   <br />
-  [[I shout, "IT'S FINE, HOW THE FUCK IS YOURS?"]](greetWorse)
+  [[Shout, "IT'S FINE, HOW THE FUCK IS YOURS?"]](greetWorse, hcAff-=5)
+  <br />
+  <br />
+  [[Sigh and say, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
 
 [[greetBad]]:
-  @dec hcAff 2
-
   You mumble something like, "Blood's good, leave itwarraslee...zzz"
 
-  "Galar, I was unable to make that out. Could you please repeat yourself?"
+  <span class="sf">"Galar, I was unable to make that out. Could you please repeat yourself?"</span>
 
-  [[Just go back to sleep.]](sleepMore)
+  [[Just go back to sleep.]](sleepMore, hcAff-=5)
+  <br />
+  <br />
+  [[Shout, "IT'S FINE, HOW THE FUCK IS YOURS?"]](greetWorse, hcAff-=5)
+  <br />
+  <br />
+  [[Loudly exclaim, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
 
 [[greetWorse]]:
-  @dec hcAff5
-
   You hear another small whirr.
 
-  "Galar, it seems as if there is an altercation happening in your HomePod. Do you need assistance?"
+  <span class="sf">"Galar, it seems as if there is an altercation happening in your HomePod. Do you need assistance?"</sf>
 
-  [[Request assistance.]]()
-  [[Decline assistance.]]()
-
+  [[Request assistance.]](aptVisit, dead=0)
+  <br />
+  <br />
+  [[Decline assistance.]](greet)
 
 [[sleepMore]]:
-  @dec hcAff 5
+  {if seen sleep:The alarm gets even louder.}{else:A grating alarm begins to play.}
 
+  <span class="sf">"Galar, HemoCorp cares about your well-being. We will dispatch a HemoMedic to your location to make sure that your blood is still circulating."</span>
 
-
+  [[Tell SpeakerFriend you're not dead.]](greet)
+  <br />
+  <br />
+  [[Continue to try to sleep.]](aptVisit, dead=1)
 
 [[greet]]:
-    var jsHcAff = squiffy.get("hcAff");
-    if (squiffy.story.seen("groan")) jsHcAff+=1;
-    if (badSide = false) jsHcAff +=2;
-    squiffy.set("hcAff", jsHcAff);
+  {if seen greetWorse:<span class="sf">"Thank you for confirming,"</span> says SpeakerFriend. }{if seen sleepMore:<span class="sf">"Here at HemoCorp, we're always pleased to know that your blood is still circulating,"</span> says SpeakerFriend. }{if seen groan:<span class="sf">"Remember, Galar, early risers have the best opportunities for a successful day!"</span>}{else:<span class="sf">"So great to hear. May your iron be ever high."</span>}
+
+  You slide out of bed and throw on the HemoSuit (TM) that you left crumpled on your floor the night before. You glance at your TeleWall (TM) to see what notices you have for the day.
+
+  SpeakerFriend chimes back in. <span class="sf">"Galar, don't forget to send your mandatory monthly sample in for testing! As we at HemoCorp always say, 'Happiness is only a blood test away.'"</span>
+
+  +++>>>>>>
+
+  [Purchase a food bar for 100ml](buyBar)
+  <br />
+  <br />
+  [Send in monthly sample](sendSample)
+  <br />
+  <br />
+  [Pay the rest of your rent](payRent)
+  <br />
+  <br />
+  [[Leave the HomePod]](leavePod)
+
+[buyBar]:
+  @dec blood 100
+  @set hungry=false
+  @inc bloodIntro 1
+
+  {if bloodIntro<2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}
+
+  {if blood<1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, "Insufficient blood. Please try again tomorrow."}{else:After 100ml has been removed, the needle retracts and a paper-wrapped food bar pops out of the slot to your right. You unwrap it and take a big bite. It tastes faintly of oatmeal.}
+
+  <p class="stats">{if blood <1150:{@hungry=true}}{if blood<1150:Your blood has only decreased by 50ml.<br />}{if blood<1150:{@blood+=50}}
+  Your blood level is {blood}ml.<br />
+  {if hungry:You are still hungry.<br />}{else:You are no longer hungry.<br />}
+  {if blood<1150:{@tired=true}}
+  {if tired=true:You feel tired.}</p>
+
+[sendSample]:
+  @inc bloodIntro 1
+  @dec blood 250
+  @set sampleSent = true
+  @inc hcAff 2
+
+  {if bloodIntro<2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}
+
+  {if blood<1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, "Insufficient blood. Please try again tomorrow."}{else:After 250ml has been removed, you hear a cheerful little "ding." <p class="sf">"Why, thank you, Galar, for sending in your sample so promptly."</p>}
+
+  <p class="stats">{if blood <1150:{@sampleSent = false}}{if blood<1150:Your blood has only decreased by 100ml.<br />}{if blood<1150:{@blood+=150}}
+  Your blood level is {blood}ml.<br />
+  {if blood<1150:{@tired=true}}
+  {if tired=true:You feel tired.}</p>
+
+[payRent]:
+  @inc bloodIntro 1
+  @dec blood 550
+  @set rentPaid = true
+  @inc hcAff 1
+
+  {if bloodIntro<2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}
+
+  {if blood<1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, "Insufficient blood. Please try again tomorrow."}{else:The blood flows out of you and into the waiting tubes. You begin to feel lightheaded, but the removal finishes and the needle retracts. You're pretty sure you can't spend any more blood today.}
+
+  <p class="stats">{if blood <1150:{@rentPaid = false}}{if blood<1150:Your blood has only decreased by 300ml.<br />}{if blood<1150:{@blood+=250}}
+  Your blood level is {blood}ml.<br />
+  {if blood<1150:{@tired=true}}
+  {if tired=true:You feel tired.}</p>
+
+[[leavePod]]:
+
+  @inc bloodIntro 1
+  {if sampleSent=false:{@hcAff-=1}}
+  {if hungry=true:{@tired=true}}
+  {if blood<1400:{@tired=true}}
+
+  You hit the button and your apartment doors slide open with a whoosh.
+
+  After a long wait and an even longer elevator ride, you make it to the ground floor, and step outside.
+
+  <p id="end">NEXT CHAPTER COMING SOON.</p>
+  <p id="followup">I'll bet there are other "endings." Want to play again? Hit the "restart" button in the bottom corner.</p>
 
 
 
-  You're at {hcAff}. REMEMBER TO REMOVE THIS
 
 
-  {if seen sleep:"Remember, Galar, early risers have the best opportunities for a successful day!"}{else:"So great to hear. May your iron be high."}
+[[aptVisit]]:
+  {if dead=0:You're beyond caring. "Yes. Yes, SpeakerFriend, I need assistance. I cannot bring myself to give a shit about getting out of bed."}
 
-Screen 1: visual of shitty messy tiny apartment with a TV taking up one whole wall. Blinking on the wall is a notice telling you what the buying power of blood is today.
+  {if dead=0:SpeakerFriend responds: <span class="sf">Assistance is on its way. Please remain calm, Galar."</span>}
 
-“25ml = 1 meal protein”
-“50ml = something”
+  Time passes. You get about 15 more minutes of sweet slumber, until you hear your HomePod doors whoosh open.
 
-Don’t forget to send your mandatory monthly sample in for testing. As hemocorp always says: “slogan!”
+  Two large, ruddy men in red HemoSuits come through the doors.
 
-Text:
-You wake up in your private, spacious pod. The notices for the day are displayed on your telewall.
+  "SpeakerFriend sent out an alert about a..." starts the one on the left, squinting at his notes on his HemoWatch (TM).
 
-What would you like to do first, citizen?
-Have some breakfast
-Take a shower
-Something else
+  {if dead=1:The one on the right interrupts. "A dead body. Galar ID Alpha, Kilo, Tango, 3, 6, 2."}
+  {if dead=0:The one on the right chimes in: "An altercation concerning one Galar ID Alpha, Kilo, Tango, 3, 6, 2, and unknown assailant."}
 
-(more filler)
+  They both pause and look at you uncertainly. You lift your head up from your pillow.
 
-eventually time to leave the apartment. when you leave the hallway and go down to the street, you see a sad scene. You’re reminded of how fortunate you are to have nice blood that hemocorp can use. otherwise, how would you afford the nice place you live?
+  [["Yeah, that's me."]](9yesMe)
+  <br />
+  <br />
+  [["Nope, he just left."]](9noNotMe)
 
-you see your neighbor walk down the street. interacting with the neighbor, you find out that he’s exhausted because he and his partner have had to give blood to feed both themselves and their kids.
+[[9yesMe]]:
+  {if dead=1:The one on the right looks concerned. "You're the deceased Galar ID Alpha, Kilo, Tango, 3, 6, 2?"}
+  {if dead=0:The one on the right hardens his stare. "Then where's the assailant?"}
 
-you also see folks sitting on the ground pleading for food and water, they can’t give blood for x y z reason. you think they’re a bunch of slobs who should get themselves in order.
+  The one on the left shakes his head. "Doesn't matter. Orders are to take whoever's here up to HQ for blood tests."
 
-blah blah more story i dunno
+  Your sleeping pod starts to look sort of hazy, and you notice the smell of what you think might be... lemons?
 
-some event strikes you and you wonder - wait. what’s all this blood for? how is hemocorp using all of this blood?
+  "You're coming with me." The one on the right walks towards you as your vision fades to black.
 
-you start doing research. talking to people. lots of conspiracy theories. “feeding an army of vampire bats” “blah blah something else.” you decide you want to find out for yourself.
+  <p id="end">NEXT CHAPTER COMING SOON.</p>
+  <p id="followup">I'll bet there are other "endings." Want to play again? Hit the "restart" button in the bottom corner.</p>
 
-spend weeks exercising, stop drinking and smoking, eat no more than recommended protein meals per day.
+[[9noNotMe]]:
+  {if dead=0:The one on the right hardens his stare. "Then you must be the unknown assailant."}
+  {if dead=1:The one on the right looks angry. "Then where'd you put the body?"}
 
-back at your tv you take a deep breath and find the “work for hemocorp” option. “100ml of blood” you give them the blood and pass out.
+  The one on the left shakes his head dismissively and walks towards you. "Doesn't matter {if dead=0:who you are}{else:where}."
 
-when you wake up you’re in a glowing bright room , surrounded by blah blah, at hemocorp.
+  Your sleeping pod starts to look sort of hazy, and you notice the smell of what you think might be... fertilizer?
+
+  "You're coming with me." The one on the right walks towards you as your vision fades to black.
+
+  <p id="end">NEXT CHAPTER COMING SOON.</p>
+  <p id="followup">I'll bet there are other "endings." Want to play again? Hit the "restart" button in the bottom corner.</p>
+
+
+[[9lowRepEnd]]:
+
+  <p id="end">NEXT CHAPTER COMING SOON.</p>
+  <p id="followup">I'll bet there are other "endings." Want to play again? Hit the "restart" button in the bottom corner.</p>
+
 
