@@ -51,11 +51,14 @@
 
 [[titleScreen]]:
   @clear
-  TITLE CARD
+
+  <img src="assets/titleCard.png"/>
 
   [[>>>>>>]](dayOne)
 
 [[dayOne]]:
+
+
   @clear
   @set hcAff = 10
   @set blood = 1800
@@ -65,6 +68,10 @@
   @set bloodIntro = 0
   @set hungry = true
   @set dead = 0
+
+  <img id="base" class="flavor" src="assets/base.png" style="z-index:1"/>
+  <img id="bed" class="flavor" src="assets/inBed.png" style="z-index:10"/>
+  <img id="speaker" class="flavor" src="assets/speakerLines.png" style="z-index:2"/>
 
   <p class="stats">Your HemoCorp reputation is now at {hcAff}.<br/>
   Your blood level is {blood}ml.<br/>
@@ -96,6 +103,8 @@
   [[Clear your throat and say, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet, hcAff+=1)
 
 [[sleep]]:
+  <img id="lesshappy" class="flavor" src="assets/lessHappy.png" style="z-index:6"/>
+
   You put your hands over your ears and try to sleep a bit longer, refusing to acknowledge SpeakerFriend.
 
   A grating alarm begins to play.
@@ -111,6 +120,8 @@
   [[Sigh and say, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
 
 [[greetBad]]:
+  <img id="lesshappy" class="flavor" src="assets/lessHappy.png" style="z-index:6"/>
+
   You mumble something like, "Blood's good, leave itwarraslee...zzz"
 
   <span class="sf">"Galar, I was unable to make that out. Could you please repeat yourself?"</span>
@@ -124,6 +135,7 @@
   [[Loudly exclaim, "It's coursing efficiently, SpeakerFriend, thank you for asking!"]](greet)
 
 [[greetWorse]]:
+  <img id="unhappy" class="flavor" src="assets/unhappy.png" style="z-index:7"/>
   You hear another small whirr.
 
   <span class="sf">"Galar, it seems as if there is an altercation happening in your HomePod. Do you need assistance?"</sf>
@@ -134,6 +146,7 @@
   [[Decline assistance.]](greet)
 
 [[sleepMore]]:
+  <img id="unhappy" class="flavor" src="assets/unhappy.png" style="z-index:7"/>
   {if seen sleep:The alarm gets even louder.}{else:A grating alarm begins to play.}
 
   <span class="sf">"Galar, HemoCorp cares about your well-being. We will dispatch a HemoMedic to your location to make sure that your blood is still circulating."</span>
@@ -144,6 +157,8 @@
   [[Continue to try to sleep.]](aptVisit, dead=1)
 
 [[greet]]:
+  <img id="clothes" class="flavor" src="assets/clothesOn.png" style="z-index:4"/>
+
   {if seen greetWorse:<span class="sf">"Thank you for confirming,"</span> says SpeakerFriend. }{if seen sleepMore:<span class="sf">"Here at HemoCorp, we're always pleased to know that your blood is still circulating,"</span> says SpeakerFriend. }{if seen groan:<span class="sf">"Remember, Galar, early risers have the best opportunities for a successful day!"</span>}{else:<span class="sf">"So great to hear. May your iron be ever high."</span>}
 
   You slide out of bed and throw on the HemoSuit (TM) that you left crumpled on your floor the night before. You glance at your TeleWall (TM) to see what notices you have for the day.
@@ -184,6 +199,8 @@
   @set sampleSent = true
   @inc hcAff 2
 
+  <img id="blood" class="flavor" src="assets/bloodFilled.png" style="z-index:3"/>
+
   {if bloodIntro<2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}
 
   {if blood<1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, "Insufficient blood. Please try again tomorrow."}{else:After 250ml has been removed, you hear a cheerful little "ding." <p class="sf">"Why, thank you, Galar, for sending in your sample so promptly."</p>}
@@ -201,7 +218,7 @@
 
   {if bloodIntro<2:You walk up to the TeleWall and roll up your sleeve. At the small interface near the tubes, you make your selection. The needle goes straight to the permanent port in your arm, and you see the blood begin to flow.}{else:The needle re-enters your arm and begins extraction.}
 
-  {if blood<1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, "Insufficient blood. Please try again tomorrow."}{else:The blood flows out of you and into the waiting tubes. You begin to feel lightheaded, but the removal finishes and the needle retracts. You're pretty sure you can't spend any more blood today.}
+  {if blood<1150:As the blood flows out of you and into the waiting tubes, The edges of your vision darken. You feel a giddy lightness, and the needle retracts. When you look down at the small display, it blinks, "Insufficient blood. Please try again tomorrow."}{else:<img id="rentpaid" class="flavor" src="assets/rentPaid.png" style="z-index:9"/> The blood flows out of you and into the waiting tubes. You begin to feel lightheaded, but the removal finishes and the needle retracts. You're pretty sure you can't spend any more blood today.}
 
   <p class="stats">{if blood <1150:{@rentPaid = false}}{if blood<1150:Your blood has only decreased by 300ml.<br />}{if blood<1150:{@blood+=250}}
   Your blood level is {blood}ml.<br />
@@ -227,6 +244,9 @@
 
 
 [[aptVisit]]:
+  <img id="doors" class="flavor" src="assets/doorsOpen.png" style="z-index:5"/>
+  <img id="emergency" class="flavor" src="assets/emergency.png" style="z-index:8"/>
+
   {if dead=0:You're beyond caring. "Yes. Yes, SpeakerFriend, I need assistance. I cannot bring myself to give a shit about getting out of bed."}
 
   {if dead=0:SpeakerFriend responds: <span class="sf">Assistance is on its way. Please remain calm, Galar."</span>}
@@ -248,6 +268,7 @@
   [["Nope, he just left."]](9noNotMe)
 
 [[9yesMe]]:
+  <img id="gas" class="flavor" src="assets/gasCloud.png" style="z-index:11"/>
   {if dead=1:The one on the right looks concerned. "You're the deceased Galar ID Alpha, Kilo, Tango, 3, 6, 2?"}
   {if dead=0:The one on the right hardens his stare. "Then where's the assailant?"}
 
